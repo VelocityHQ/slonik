@@ -49,7 +49,7 @@ const sql: SqlTaggedTemplateType = (
 ): SqlSqlTokenType => {
   let rawSql = '';
 
-  const parameterValues = [];
+  let parameterValues = [];
 
   let index = 0;
 
@@ -78,7 +78,7 @@ const sql: SqlTaggedTemplateType = (
       const sqlFragment = createSqlTokenSqlFragment(token, parameterValues.length);
 
       rawSql += sqlFragment.sql;
-      parameterValues.push(...sqlFragment.values);
+      parameterValues = parameterValues.concat(sqlFragment.values);
     } else {
       log.error({
         constructedSql: rawSql,
